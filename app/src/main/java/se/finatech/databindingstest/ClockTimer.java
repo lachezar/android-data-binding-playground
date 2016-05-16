@@ -2,6 +2,7 @@ package se.finatech.databindingstest;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -18,6 +19,8 @@ import java.util.TimerTask;
 public class ClockTimer extends BaseObservable { // Plain Old Java Object (a.k.a POJO)
 
     final Timer timer = new Timer();
+
+    private String timeColor = "#000000";
 
     @NonNull
     private String lastTime = "";
@@ -52,6 +55,22 @@ public class ClockTimer extends BaseObservable { // Plain Old Java Object (a.k.a
         }
 
         return lastTime;
+    }
+
+    @Bindable
+    public String getTimeColor() {
+        return timeColor;
+    }
+
+    @Bindable
+    public void setTimeColor(String color) {
+        timeColor = color;
+        try {
+            Color.parseColor(color);
+            notifyPropertyChanged(se.finatech.databindingstest.BR.timeColor);
+        } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
+            // pass
+        }
     }
 
     public void onTimerPressed(View view) {

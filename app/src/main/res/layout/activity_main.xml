@@ -2,18 +2,31 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View"/>
+        <import type="android.graphics.Color"/>
         <variable name="timer" type="se.finatech.databindingstest.ClockTimer"/>
     </data>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="10">
         <TextView android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:text="@{timer.time, default=`00:00:00`}"
             android:textSize="30sp"
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center_horizontal|center_vertical"
-            android:onClick="@{timer.onTimerPressed}"/>
+            android:layout_weight="8"
+            android:onClick="@{timer::onTimerPressed}"
+            android:textColor="@{Color.parseColor(timer.timeColor)}"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:text="@={timer.timeColor, default=`#000000`}"
+            android:textSize="30sp"
+            android:textColor="@{Color.parseColor(timer.timeColor)}"
+            android:gravity="center_horizontal|center_vertical"/>
     </LinearLayout>
 </layout>
